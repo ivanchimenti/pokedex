@@ -11,16 +11,16 @@ if (!isset($_SESSION['admin_id'])) {
 $error = '';
 
 $NroPokedex = validate_input($_POST['NroPokedex']);
-$name = validate_input($_POST['name']);
-$type1 = validate_input($_POST['type1']);
-$type2 = validate_input($_POST['type2']);
-$description = validate_input($_POST['description']);
+$nombre = validate_input($_POST['nombre']);
+$tipo1 = validate_input($_POST['tipo1']);
+$tipo2 = validate_input($_POST['tipo2']);
+$descripcion = validate_input($_POST['descripcion']);
 
-$image = '';
+$imagen = '';
 
-if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-    $image = upload_image($_FILES['image']);
-    if (!$image) {
+if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
+    $imagen = upload_image($_FILES['imagen']);
+    if (!$imagen) {
         $error = "Error al subir la imagen.";
     }
 } else {
@@ -30,17 +30,17 @@ if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
 
 if (empty($error)) {
 
-    $sql = "INSERT INTO pokemon (NroPokedex, name, description, image) VALUES ('$NroPokedex', '$name', '$description', '$image')";
+    $sql = "INSERT INTO pokemon (NroPokedex, nombre, descripcion, imagen) VALUES ('$NroPokedex', '$nombre', '$descripcion', '$imagen')";
     if ($conn->query($sql) === true) {
         $IdPokemon = $conn->insert_id;
 
 
-        $sqlType1 = "INSERT INTO pokemon_tipo (IdPokemon, IdTipo) VALUES ('$IdPokemon', '$type1')";
-        $conn->query($sqlType1);
+        $sqlTipo1 = "INSERT INTO pokemon_tipo (IdPokemon, IdTipo) VALUES ('$IdPokemon', '$tipo1')";
+        $conn->query($sqlTipo1);
 
-        if (!empty($type2)) {
-            $sqlType2 = "INSERT INTO pokemon_tipo (IdPokemon, IdTipo) VALUES ('$IdPokemon', '$type2')";
-            $conn->query($sqlType2);
+        if (!empty($tipo2)) {
+            $sqlTipo2 = "INSERT INTO pokemon_tipo (IdPokemon, IdTipo) VALUES ('$IdPokemon', '$tipo2')";
+            $conn->query($sqlTipo2);
         }
 
         header("Location: dashboard.php");
@@ -68,15 +68,15 @@ if (empty($error)) {
         <form
             action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>"
             method="post" enctype="multipart/form-data">
-            <label for="name">Nombre:</label>
-            <input type="text" id="name" name="name" required><br>
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required><br>
 
             <label for="nroPokedex">Nro. de Pokedex:</label>
             <input type="text" id="nroPokedex" name="nroPokedex" required><br>
 
 
-            <label for="type1">Primer Tipo:</label>
-            <select id="type1" name="type1" required>
+            <label for="tipo1">Primer Tipo:</label>
+            <select id="tipo1" name="tipo1" required>
                 <option value="1">Normal</option>
                 <option value="2">Pelea</option>
                 <option value="3">Volador</option>
@@ -97,8 +97,8 @@ if (empty($error)) {
                 <option value="18">Hada</option>
             </select><br>
 
-            <label for="type2">Segundo Tipo:</label>
-            <select id="type2" name="type2">
+            <label for="tipo2">Segundo Tipo:</label>
+            <select id="tipo2" name="tipo2">
                 <option value="">Ninguno</option>
                 <option value="1">Normal</option>
                 <option value="2">Pelea</option>
@@ -120,11 +120,11 @@ if (empty($error)) {
                 <option value="18">Hada</option>
             </select><br>
 
-            <label for="description">Descripción:</label>
-            <textarea id="description" name="description" required></textarea><br>
+            <label for="descripcion">Descripción:</label>
+            <textarea id="descripcion" name="descripcion" required></textarea><br>
 
-            <label for="image">Imagen:</label>
-            <input type="file" id="image" name="image" accept="image/*" required><br>
+            <label for="imagen">Imagen:</label>
+            <input type="file" id="imagen" name="imagen" accept="image/*" required><br>
 
             <button type="submit">Confirmar</button>
         </form>
