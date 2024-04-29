@@ -32,14 +32,14 @@ if (empty($error)) {
 
     $sql = "INSERT INTO pokemon (NroPokedex, name, description, image) VALUES ('$NroPokedex', '$name', '$description', '$image')";
     if ($conn->query($sql) === true) {
-        $pokemonId = $conn->insert_id;
+        $IdPokemon = $conn->insert_id;
 
 
-        $sqlType1 = "INSERT INTO pokemon_type (pokemon_id, type_id) VALUES ('$pokemonId', '$type1')";
+        $sqlType1 = "INSERT INTO pokemon_tipo (IdPokemon, IdTipo) VALUES ('$IdPokemon', '$type1')";
         $conn->query($sqlType1);
 
         if (!empty($type2)) {
-            $sqlType2 = "INSERT INTO pokemon_type (pokemon_id, type_id) VALUES ('$pokemonId', '$type2')";
+            $sqlType2 = "INSERT INTO pokemon_tipo (IdPokemon, IdTipo) VALUES ('$IdPokemon', '$type2')";
             $conn->query($sqlType2);
         }
 
