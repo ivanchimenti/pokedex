@@ -1,0 +1,8 @@
+.detalle{
+    display:flex;
+    justify-content: center;
+}
+
+.informacion div{
+    display: flex;
+}

@@ -1,0 +1,21 @@
+.header{
+    background-color: orangered;
+}
+.userInfo{
+    display: flex;
+    justify-content: space-between;
+}
+
+.userInfo img{
+    width:200px;
+    height:75px;
+}
+
+.logo{
+    display:flex;
+}
+
+.search{
+    display: flex;
+    justify-content: center;
+}

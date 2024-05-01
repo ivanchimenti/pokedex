@@ -1,0 +1,3 @@
+body > *:first-child {
+    padding: 25px;
+}
