@@ -36,17 +36,21 @@ mysqli_close($conn);
     }
 ?>
 
-<div class="container row justify-content-center align-items-center">
-    <?php while ($row = $result -> fetch_assoc()): ?>
-    <div class="card" style="width: 18rem;">
-        <img src="<?php echo "assets/pkmnImages/" . $row['Id'] . ".gif"?>" class="card-img-top" alt="<?php echo $row['Nombre'];?>">
-        <div class="card-body">
-            <h5 class="card-title"><?php echo $row['Nombre'];?></h5>
-            <a href="detalle_pokemon.php?busqueda=<?php echo $row['Id'];?>" class="btn btn-primary">Detalle</a>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-10" style="display: contents;">
+            <?php while ($row = $result -> fetch_assoc()): ?>
+                <div class="card" style="width: 18rem;">
+                    <img src="<?php echo "assets/pkmnImages/" . $row['Id'] . ".gif"?>" class="card-img-top" style="width:200px; height:200px" alt="<?php echo $row['Nombre'];?>">
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo $row['Nombre'];?></h5>
+                        <a href="detalle_pokemon.php?busqueda=<?php echo $row['Id'];?>" class="btn btn-primary">Detalle</a>
+                    </div>
+                </div>
+
+            <?php endwhile; ?>
         </div>
     </div>
-
-    <?php endwhile; ?>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
