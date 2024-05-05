@@ -21,31 +21,33 @@ mysqli_close($conn);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Pokedex</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="assets/css/header.css">
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/header.css">
+    <link rel="stylesheet" href="../assets/css/styles.css">
 </head>
 <body>
 <?php
-    include("header.php");
-
-    session_start();
-
-    if (isset($_SESSION['admin_id'])) {
-        header("Location: admin/dashboard.php");
-        exit();
-    }
+include("../header.php");
 ?>
 
 <div class="container row justify-content-center align-items-center">
-    <?php while ($row = $result -> fetch_assoc()): ?>
-    <div class="card" style="width: 18rem;">
-        <img src="<?php echo "assets/pkmnImages/" . $row['Id'] . ".gif"?>" class="card-img-top" alt="<?php echo $row['Nombre'];?>">
-        <div class="card-body">
-            <h5 class="card-title"><?php echo $row['Nombre'];?></h5>
-            <a href="detalle_pokemon.php?busqueda=<?php echo $row['Id'];?>" class="btn btn-primary">Detalle</a>
-        </div>
-    </div>
-    <?php endwhile; ?>
+    <?php
+    if(mysqli_num_rows($result) > 0){
+        echo "<table>";
+        echo "<tr><th>Nro. Pokedex</th><th>Nombre</th><th>Descripción</th><th>Acciones</th></tr>";
+        while ($row = mysqli_fetch_assoc($result)){
+            echo "<tr>";
+            echo "<td>" . $row["NroPokedex"] . "</td>";
+            echo "<td>" . $row["Nombre"] . "</td>";
+            echo "<td>" . $row["Descripcion"] . "</td>";
+            echo "<td><a href='editPokemon.php?id=" . $row["Id"] . "'>Editar</a></td>";
+            echo "<td><a href='deletePokemon.php?id=" . $row["Id"] . "'>Eliminar</a></td>";
+            echo "</tr>";
+        }
+        echo "</table>";
+    } else {
+        echo "No se encontraron resultados";
+    }
+    ?>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
