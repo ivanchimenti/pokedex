@@ -52,7 +52,7 @@ if(isset($_POST['submit'])) {
     </div>
     <h1 class="formTitle">Bienvenido</h1>
     <div class="formulario">
-        <form action="login.php" method="post">SS
+        <form action="login.php" method="post">
             <label for="username">Usuario:</label><br>
             <input type="text" id="username" name="username" required>
             <br>
