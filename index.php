@@ -44,7 +44,7 @@ mysqli_close($conn);
                     <img src="<?php echo "assets/pkmnImages/" . $row['Id'] . ".gif"?>" class="card-img-top" style="width:200px; height:200px" alt="<?php echo $row['Nombre'];?>">
                     <div class="card-body">
                         <h5 class="card-title"><?php echo $row['Nombre'];?></h5>
-                        <a href="detalle_pokemon.php?busqueda=<?php echo $row['Id'];?>" class="btn btn-primary">Detalle</a>
+                        <a href="detalle_pokemon.php?id=<?php echo $row['Id'];?>" class="btn btn-primary">Detalle</a>
                     </div>
                 </div>
 

@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include('db.php');
+include("db.php");
 
 if(isset($_SESSION['admin_id'])) {
     header("Location: /pokedex/admin/dashboard.php");
