@@ -1,31 +1,48 @@
 <?php
-//require_once('includes/db.php');
-//require_once('includes/functions.php');
-//
+require_once('includes/db.php');
+require_once('includes/functions.php');
+
 session_start();
-$conn = mysqli_connect("localhost", "root", "", "pokedexpw2");
-if (!$conn){ die("Error al conectar con la base de datos: " . mysqli_connected_error()); }
 
-$pokemon = null;
-
-
-if(isset($_GET['search'])) {
-    $searchTerm = strtolower($_GET['search']);
-
-
-    $sql = "SELECT * FROM pokemon WHERE LOWER(Nombre) = '$searchTerm'";
-    $result = $conn->query($sql);
-
-
-    if($result->num_rows > 0) {
-
-        $pokemon = $result->fetch_assoc();
+    $conn = mysqli_connect("localhost", "root", "", "pokedexpw2");
+    if (!$conn) {
+        die("Error al conectar con la base de datos: " . mysqli_connect_error());
+    }
+    
+    if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["search"])) {
+        $search = validate_input($_GET["search"]);
+    
+        // Check if session ID is set
+        if (isset($_SESSION['admin_id'])) {
+            // Query for admin user
+            $sql = "SELECT * FROM pokemon WHERE name LIKE '%$search%'";
+            $result = $conn->query($sql);
+    
+            if ($result->num_rows > 0) {
+                $errorMessage = "";
+            } else {
+                header("Location: dashboard.php?error=1");
+                exit();
+            }
+        } else {
+            // Query for non-admin user
+            $searchTerm = strtolower($search);
+    
+            $sql = "SELECT * FROM pokemon WHERE LOWER(Nombre) = '$searchTerm'";
+            $result = $conn->query($sql);
+    
+            if ($result->num_rows > 0) {
+                $pokemon = $result->fetch_assoc();
+            } else {
+                header("Location: index.php?error=1");
+                exit();
+            }
+        }
     } else {
-
-        header("Location: index.php?error=1");
+        header("Location: dashboard.php");
         exit();
     }
-}
+
 ?>
 
 <!DOCTYPE html>
@@ -35,11 +52,8 @@ if(isset($_GET['search'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultado de búsqueda</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="assets/css/header.css">
-    <link rel="stylesheet" href="assets/css/styles.css">
-<!--    <link rel="stylesheet" href="css/common.css">-->
-<!--    <link rel="stylesheet" href="css/index.css">-->
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/index.css">
 </head>
 
 <body>
@@ -47,18 +61,83 @@ if(isset($_GET['search'])) {
     <?php include('header.php'); ?>
 
     <div class="pokemon_container">
-        <?php if($pokemon): ?>
-        <a
-            href="detalle_pokemon.php?id=<?php echo $pokemon['Id']; ?>">
-            <div class="card">
-                <h3 class="pkmn_name">
-                    <?php echo $pokemon['Nombre']; ?>
-                </h3>
-                <img src=<?php echo "assets/pkmnImages/".$pokemon['Imagen'];?> style="width:200px;height:200px;" alt="<?php echo $pokemon['Nombre']; ?>">
-            </div>
-        </a>
-        <?php endif; ?>
-    </div>
-</body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Dex Number</th>
+                    <th>Name</th>
+                    <th>Image</th>
+                    <th>Type</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (isset($_SESSION['admin_id'])): ?>
+                <?php while ($row = $result->fetch_assoc()): ?>
+                <tr>
+                    <td><?php echo $row['id']; ?>
+                    </td>
+                    <td><?php echo $row['dexNumber']; ?>
+                    </td>
+                    <td>
+                        <a class="pkmn_name"
+                            href="/pokedex/pokemon.php?id=<?php echo $row['id']; ?>">
+                            <?php echo $row['name']; ?>
+                        </a>
+                    </td>
+                    <td>
+                        <a class="pkmn_name"
+                            href="/pokedex/pokemon.php?id=<?php echo $row['id']; ?>">
+                            <img class="pkmn_img"
+                                src="<?php echo $row['image']; ?>"
+                                alt="<?php echo $row['name']; ?>">
+                        </a>
+                    </td>
+                    <td>
+                    <?php
+                                $pokemonId = $row['id'];
+                    $sqlTypes = "SELECT t.name FROM type t JOIN pokemon_type pt ON t.id = pt.type_id WHERE pt.pokemon_id = $pokemonId";
+                    $resultTypes = $conn->query($sqlTypes);
+                    echo '<div class="types">';
+                    while ($rowType = $resultTypes->fetch_assoc()) {
+                        echo '<div class="icon ' . $rowType['name'] . '"><img src="/pokedex/assets/types/' . $rowType['name'] . '.svg" alt="' . $rowType['name'] . '"></div>';
+                    }
+                    echo '</div>';
+                    ?>
+                    </td>
+                    <td><a
+                            href="editPokemon.php?id=<?php echo $row['id']; ?>"><button>Edit</button></a>
+                    </td>
+                    <td><a
+                            href="deletePokemon.php?id=<?php echo $row['id']; ?>"><button>Delete</button></a>
+                    </td>
+                </tr>
+                <?php endwhile; ?>
+                <?php else: ?>
+                <?php if ($pokemon): ?>
+                    <a
+                    href="detalle_pokemon.php?id=<?php echo $pokemon['Id']; ?>">
+                    <div class="card">
+                        <h3 class="pkmn_name">
+                            <?php echo $pokemon['Nombre']; ?>
+                        </h3>
+                        <img
+                            src=<?php echo "assets/pkmnImages/".$pokemon['Imagen'];?>
+                        style="width:200px;height:200px;"
+                        alt="<?php echo $pokemon['Nombre']; ?>">
+                    </div>
+                </a>
+                <?php endif; ?>
+                <?php endif; ?>
+                </tbody>
+            </table>
+            <?php if (isset($_SESSION['admin_id'])): ?>
+            <a class="addPokemon" href="addPokemon.php"><button>Add Pokémon</button></a>
+            <?php endif; ?>
+        </div>
+    </body>
+    <?php include('../footer.php'); ?>
+
 </html>
