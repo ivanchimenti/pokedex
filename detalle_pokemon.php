@@ -37,7 +37,7 @@ if (isset($_GET['busqueda'])) {
         if(mysqli_num_rows($resultTipos) > 0){
             while($row = mysqli_fetch_assoc($result)){
                 echo "<div class='container detalle'>";
-                echo "<img src='assets/pkmnImages/" . $row["Imagen"] . "' alt='' style='width:200px; height:200px'>";
+                echo "<img src='assets/pkmnImages/" . $row["Id"] . ".gif" . "' alt='' style='width:200px; height:200px'>";
                 echo "<div class='informacion'>";
                 echo "<div class='d-flex'>";
                 echo "<div class='d-flex flex-column'>";
