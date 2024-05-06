@@ -1,9 +1,12 @@
 <?php
-//session_start();
+include("../db.php");
 
-$conn = mysqli_connect("localhost", "root", "", "pokedexpw2");
+session_start();
+if (!isset($_SESSION['admin_id'])) {
+    header("Location: /pokedex/index.php");
+    exit();
+}
 
-if (!$conn){ die("Error al conectar con la base de datos: " . mysqli_connected_error()); }
 
 $sql = "SELECT * FROM pokemon";
 $result = mysqli_query($conn, $sql);
@@ -17,6 +20,7 @@ mysqli_close($conn);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -36,7 +40,7 @@ include("../header.php");
     if(mysqli_num_rows($result) > 0){
         echo "<table>";
         echo "<tr><th>Nro. Pokedex</th><th>Nombre</th><th>Descripción</th><th>Acciones</th></tr>";
-        while ($row = mysqli_fetch_assoc($result)){
+        while ($row = mysqli_fetch_assoc($result)) {
             echo "<tr>";
             echo "<td>" . $row["NroPokedex"] . "</td>";
             echo "<td>" . $row["Nombre"] . "</td>";
