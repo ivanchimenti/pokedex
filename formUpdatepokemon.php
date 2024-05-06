@@ -1,52 +1,53 @@
 <?php
-//if (isset($_GET['pokemonId'])) {
-// Obtener el valor de "pokemonId" y mostrarlo
-$pokemonId = 25;//$_GET['pokemonId'];
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "pokedexpw2";
+if (isset($_GET['id'])) {
+// Obtener el valor de "id" y mostrarlo
+    $id = $_GET['id'];
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $database = "pokedexpw2";
 
-$conn = mysqli_connect($servername, $username, $password, $database);
+    $conn = mysqli_connect($servername, $username, $password, $database);
 
-if (!$conn) {
-    die("error al conectar con la base de datos: " . mysqli_connect_error());
-}
-
-$sqlQuery = "SELECT Id, Nombre, Imagen, Descripcion, NroPokedex FROM pokemon WHERE Id = '$pokemonId';";
-$result = mysqli_query($conn, $sqlQuery);
-
-if (mysqli_num_rows($result) > 0) {
-    while($row = mysqli_fetch_assoc($result)){
-        $Id = $row["Id"];
-        $Nombre = $row["Nombre"];
-        $Imagen = $row["Imagen"];
-        $Descripcion = $row["Descripcion"];
-        $NroPokedex = $row["NroPokedex"];
+    if (!$conn) {
+        die("error al conectar con la base de datos: " . mysqli_connect_error());
     }
-}
 
-$sqlQueryTipos = "SELECT t.Id FROM pokemon p JOIN pokemon_tipo pt ON p.Id = pt.IdPokemon JOIN tipo t ON pt.IdTipo = t.Id WHERE p.Id = '$pokemonId';";
-$resultTipos = mysqli_query($conn, $sqlQueryTipos);
+    $sqlQuery = "SELECT Id, Nombre, Imagen, Descripcion, NroPokedex FROM pokemon WHERE Id = '$id';";
+    $result = mysqli_query($conn, $sqlQuery);
 
-if (mysqli_num_rows($resultTipos) > 0) {
-    $tiposActuales = array();
-    while($row = mysqli_fetch_assoc($resultTipos)){
-        $tiposActuales[] = $row["Id"];
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $Id = $row["Id"];
+            $Nombre = $row["Nombre"];
+            $Imagen = $row["Imagen"];
+            $Descripcion = $row["Descripcion"];
+            $NroPokedex = $row["NroPokedex"];
+        }
     }
-}
 
-$sqlQueryTiposCompleto = "SELECT * FROM tipo;";
-$resultTiposCompleto = mysqli_query($conn, $sqlQueryTiposCompleto);
+    $sqlQueryTipos = "SELECT t.Id FROM pokemon p JOIN pokemon_tipo pt ON p.Id = pt.IdPokemon JOIN tipo t ON pt.IdTipo = t.Id WHERE p.Id = '$id';";
+    $resultTipos = mysqli_query($conn, $sqlQueryTipos);
 
-if (mysqli_num_rows($resultTiposCompleto) > 0) {
-    $arrayTipos = array();
-    while($row = mysqli_fetch_assoc($resultTiposCompleto)){
-        $arrayTipos[$row["Id"]] = $row["Nombre"];
+    if (mysqli_num_rows($resultTipos) > 0) {
+        $tiposActuales = array();
+        while ($row = mysqli_fetch_assoc($resultTipos)) {
+            $tiposActuales[] = $row["Id"];
+        }
     }
-}
 
-$conn->close();
+    $sqlQueryTiposCompleto = "SELECT * FROM tipo;";
+    $resultTiposCompleto = mysqli_query($conn, $sqlQueryTiposCompleto);
+
+    if (mysqli_num_rows($resultTiposCompleto) > 0) {
+        $arrayTipos = array();
+        while ($row = mysqli_fetch_assoc($resultTiposCompleto)) {
+            $arrayTipos[$row["Id"]] = $row["Nombre"];
+        }
+    }
+
+    $conn->close();
+}
 ?>
 
 <!doctype html>

@@ -1,8 +1,8 @@
 <?php
-require_once('includes/db.php');
-require_once('includes/functions.php');
-
-session_start();
+//require_once('includes/db.php');
+//require_once('includes/functions.php');
+require_once('db.php');
+require_once('functions.php');
 
     $conn = mysqli_connect("localhost", "root", "", "pokedexpw2");
     if (!$conn) {
@@ -15,7 +15,7 @@ session_start();
         // Check if session ID is set
         if (isset($_SESSION['admin_id'])) {
             // Query for admin user
-            $sql = "SELECT * FROM pokemon WHERE name LIKE '%$search%'";
+            $sql = "SELECT * FROM pokemon WHERE Nombre LIKE '%$search%'";
             $result = $conn->query($sql);
     
             if ($result->num_rows > 0) {
@@ -52,8 +52,11 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultado de búsqueda</title>
-    <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/index.css">
+<!--    <link rel="stylesheet" href="css/common.css">-->
+<!--    <link rel="stylesheet" href="css/index.css">-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/header.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 
 <body>
@@ -138,6 +141,4 @@ session_start();
             <?php endif; ?>
         </div>
     </body>
-    <?php include('../footer.php'); ?>
-
 </html>

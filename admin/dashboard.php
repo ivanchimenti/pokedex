@@ -1,4 +1,6 @@
 <?php
+//session_start();
+
 $conn = mysqli_connect("localhost", "root", "", "pokedexpw2");
 
 if (!$conn){ die("Error al conectar con la base de datos: " . mysqli_connected_error()); }
@@ -39,8 +41,8 @@ include("../header.php");
             echo "<td>" . $row["NroPokedex"] . "</td>";
             echo "<td>" . $row["Nombre"] . "</td>";
             echo "<td>" . $row["Descripcion"] . "</td>";
-            echo "<td><a href='editPokemon.php?id=" . $row["Id"] . "'>Editar</a></td>";
-            echo "<td><a href='deletePokemon.php?id=" . $row["Id"] . "'>Eliminar</a></td>";
+            echo "<td><a href='/Pokedex/formUpdatePokemon.php?id=" . $row["Id"] . "'>Editar</a></td>";
+            echo "<td><a href='/Pokedex/deletePokemon.php?id=" . $row["Id"] . "'>Eliminar</a></td>";
             echo "</tr>";
         }
         echo "</table>";

@@ -18,12 +18,10 @@ include_once "header.php";
 if (isset($_GET['id'])) {
     // Obtener el valor de "id" y mostrarlo
     $id = $_GET['id'];
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $database = "pokedexpw2";
 
-    $conn = mysqli_connect($servername,$username,$password,$database);
+    $config_path = $_SERVER['DOCUMENT_ROOT'] . '/pokedex/config.ini';
+    $config = parse_ini_file($config_path);
+    $conn = mysqli_connect($config['servername'], $config['username'], $config['password'], $config['database']);
 
     if(!$conn){
         die("error al conectar con la base de datos: " . mysqli_connect_error());
