@@ -40,7 +40,7 @@ mysqli_close($conn);
     <div class="row justify-content-center mt-4 mb-4">
         <div class="col-10" style="display: contents;">
             <?php while ($row = $result -> fetch_assoc()): ?>
-                <div class="card m-2 p-2" style="width: 18rem;">
+                <div class="card m-3 p-3 justify-content-center" style="width: 18rem;">
                     <img src="<?php echo "assets/pkmnImages/" . $row['Id'] . ".gif"?>" class="card-img-top" style="width:200px; height:200px" alt="<?php echo $row['Nombre'];?>">
                     <div class="card-body">
                         <h5 class="card-title"><?php echo $row['Nombre'];?></h5>

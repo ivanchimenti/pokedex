@@ -15,9 +15,9 @@
 <?php
 include_once "header.php";
 
-if (isset($_GET['busqueda'])) {
-    // Obtener el valor de "busqueda" y mostrarlo
-    $busqueda = $_GET['busqueda'];
+if (isset($_GET['id'])) {
+    // Obtener el valor de "id" y mostrarlo
+    $id = $_GET['id'];
     $servername = "localhost";
     $username = "root";
     $password = "";
@@ -29,10 +29,10 @@ if (isset($_GET['busqueda'])) {
         die("error al conectar con la base de datos: " . mysqli_connect_error());
     }
 
-    $sqlQueryPokemon = "SELECT * FROM pokemon WHERE Id = $busqueda";
+    $sqlQueryPokemon = "SELECT * FROM pokemon WHERE Id = $id";
     $result = mysqli_query($conn,$sqlQueryPokemon);
     if(mysqli_num_rows($result) > 0){
-        $sqlQueryTipos = "SELECT * FROM pokemon_tipo WHERE IdPokemon = $busqueda";
+        $sqlQueryTipos = "SELECT * FROM pokemon_tipo WHERE IdPokemon = $id";
         $resultTipos = mysqli_query($conn,$sqlQueryTipos);
         if(mysqli_num_rows($resultTipos) > 0){
             while($row = mysqli_fetch_assoc($result)){
