@@ -1,6 +1,7 @@
+<head>
+    <link rel="stylesheet" href="assets/css/header.css">
+</head>
 <div class="header">
-    <!--    <a href="/pokedex/admin/dashboard.php">-->
-    <!--    </a>-->
     <div class="userInfo">
         <div class="logo">
             <a href="/Pokedex/index.php"><img src="/Pokedex/assets/images/pokebola.png" alt="pokedex logo"></a>

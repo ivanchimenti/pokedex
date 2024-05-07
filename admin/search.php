@@ -33,7 +33,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["search"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokédex - Dashboard</title>
-    <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/dashboard.css">
 </head>
 
@@ -58,39 +57,39 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["search"])) {
                 <tr>
                     <td><?php echo $row['id']; ?>
                     </td>
-                    <td><?php echo $row['dexNumber']; ?>
+                    <td><?php echo $row['NroPokedex']; ?>
                     </td>
                     <td>
                         <a class="pkmn_name"
                             href="/pokedex/pokemon.php?id=<?php echo $row['id']; ?>">
-                            <?php echo $row['name']; ?>
+                            <?php echo $row['nombre']; ?>
                         </a>
                     </td>
                     <td>
                         <a class="pkmn_name"
                             href="/pokedex/pokemon.php?id=<?php echo $row['id']; ?>">
                             <img class="pkmn_img"
-                                src="<?php echo $row['image']; ?>"
-                                alt="<?php echo $row['name']; ?>">
+                                src="<?php echo $row['imagen']; ?>"
+                                alt="<?php echo $row['nombre']; ?>">
                         </a>
                     </td>
                     <td>
                         <?php
                     $pokemonId = $row['id'];
-                    $sqlTypes = "SELECT t.name FROM type t JOIN pokemon_type pt ON t.id = pt.type_id WHERE pt.pokemon_id = $pokemonId";
+                    $sqlTypes = "SELECT t.nombre FROM type t JOIN pokemon_type pt ON t.id = pt.type_id WHERE pt.pokemon_id = $pokemonId";
                     $resultTypes = $conn->query($sqlTypes);
                     echo '<div class="types">';
                     while ($rowType = $resultTypes->fetch_assoc()) {
-                        echo '<div class="icon ' . $rowType['name'] . '"><img src="/pokedex/assets/types/' . $rowType['name'] . '.svg" alt="' . $rowType['name'] . '"></div>';
+                        echo '<div class="icon ' . $rowType['nombre'] . '"><img src="/pokedex/assets/types/' . $rowType['nombre'] . '.svg" alt="' . $rowType['nombre'] . '"></div>';
                     }
                     echo '</div>';
                     ?>
                     </td>
                     <td><a
-                            href="editPokemon.php?id=<?php echo $row['id']; ?>"><button>Edit</button></a>
+                            href="formUpdatepokemon.php?id=<?php echo $row['id']; ?>"><button>Editar</button></a>
                     </td>
                     <td><a
-                            href="deletePokemon.php?id=<?php echo $row['id']; ?>"><button>Delete</button></a>
+                            href="deletePokemon.php?id=<?php echo $row['id']; ?>"><button>Borrar</button></a>
                     </td>
                 </tr>
                 <?php endwhile; ?>

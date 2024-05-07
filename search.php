@@ -4,44 +4,44 @@
 require_once('db.php');
 require_once('functions.php');
 
-    $conn = mysqli_connect("localhost", "root", "", "pokedexpw2");
-    if (!$conn) {
-        die("Error al conectar con la base de datos: " . mysqli_connect_error());
-    }
-    
-    if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["search"])) {
-        $search = validate_input($_GET["search"]);
-    
-        // Check if session ID is set
-        if (isset($_SESSION['admin_id'])) {
-            // Query for admin user
-            $sql = "SELECT * FROM pokemon WHERE Nombre LIKE '%$search%'";
-            $result = $conn->query($sql);
-    
-            if ($result->num_rows > 0) {
-                $errorMessage = "";
-            } else {
-                header("Location: dashboard.php?error=1");
-                exit();
-            }
+$conn = mysqli_connect("localhost", "root", "", "pokedexpw2");
+if (!$conn) {
+    die("Error al conectar con la base de datos: " . mysqli_connect_error());
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["search"])) {
+    $search = validate_input($_GET["search"]);
+
+    // Check if session ID is set
+    if (isset($_SESSION['admin_id'])) {
+        // Query for admin user
+        $sql = "SELECT * FROM pokemon WHERE Nombre LIKE '%$search%'";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            $errorMessage = "";
         } else {
-            // Query for non-admin user
-            $searchTerm = strtolower($search);
-    
-            $sql = "SELECT * FROM pokemon WHERE LOWER(Nombre) = '$searchTerm'";
-            $result = $conn->query($sql);
-    
-            if ($result->num_rows > 0) {
-                $pokemon = $result->fetch_assoc();
-            } else {
-                header("Location: index.php?error=1");
-                exit();
-            }
+            header("Location: dashboard.php?error=1");
+            exit();
         }
     } else {
-        header("Location: dashboard.php");
-        exit();
+        // Query for non-admin user
+        $searchTerm = strtolower($search);
+
+        $sql = "SELECT * FROM pokemon WHERE LOWER(Nombre) = '$searchTerm'";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            $pokemon = $result->fetch_assoc();
+        } else {
+            header("Location: index.php?error=1");
+            exit();
+        }
     }
+} else {
+    header("Location: dashboard.php");
+    exit();
+}
 
 ?>
 
@@ -52,10 +52,8 @@ require_once('functions.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultado de búsqueda</title>
-<!--    <link rel="stylesheet" href="css/common.css">-->
-<!--    <link rel="stylesheet" href="css/index.css">-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="assets/css/header.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 
@@ -99,7 +97,7 @@ require_once('functions.php');
                         </a>
                     </td>
                     <td>
-                    <?php
+                        <?php
                                 $pokemonId = $row['id'];
                     $sqlTypes = "SELECT t.name FROM type t JOIN pokemon_type pt ON t.id = pt.type_id WHERE pt.pokemon_id = $pokemonId";
                     $resultTypes = $conn->query($sqlTypes);
@@ -120,7 +118,7 @@ require_once('functions.php');
                 <?php endwhile; ?>
                 <?php else: ?>
                 <?php if ($pokemon): ?>
-                    <a
+                <a
                     href="detalle_pokemon.php?id=<?php echo $pokemon['Id']; ?>">
                     <div class="card">
                         <h3 class="pkmn_name">
@@ -134,11 +132,12 @@ require_once('functions.php');
                 </a>
                 <?php endif; ?>
                 <?php endif; ?>
-                </tbody>
-            </table>
-            <?php if (isset($_SESSION['admin_id'])): ?>
-            <a class="addPokemon" href="addPokemon.php"><button>Add Pokémon</button></a>
-            <?php endif; ?>
-        </div>
-    </body>
+            </tbody>
+        </table>
+        <?php if (isset($_SESSION['admin_id'])): ?>
+        <a class="addPokemon" href="addPokemon.php"><button>Add Pokémon</button></a>
+        <?php endif; ?>
+    </div>
+</body>
+
 </html>
