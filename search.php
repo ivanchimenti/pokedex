@@ -55,6 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["search"])) {
 <body>
 
     <?php include('./header.php'); ?>
+    <?php if (isset($_SESSION['admin_id'])): ?>
     <div class="pokemon_container">
         <table>
             <thead>
@@ -69,7 +70,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["search"])) {
                 </tr>
             </thead>
             <tbody>
-                <?php if (isset($_SESSION['admin_id'])): ?>
                 <?php while ($row = $result->fetch_assoc()): ?>
                 <tr>
                     <td><?php echo $row['id']; ?>
