@@ -8,9 +8,6 @@ $result = mysqli_query($conn, $sql);
 if(mysqli_num_rows($result) <= 0) {
     echo "No se encontraron resultados";
 }
-
-mysqli_close($conn);
-
 ?>
 
 <!DOCTYPE html>
