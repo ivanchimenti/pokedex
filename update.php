@@ -1,5 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/header.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <title>Resultado</title>
+</head>
+<body>
 <?php
-
+include("header.php");
 $config_path = $_SERVER['DOCUMENT_ROOT'] . '/pokedex/config.ini';
 $config = parse_ini_file($config_path);
 $conn = mysqli_connect($config['servername'], $config['username'], $config['password'], $config['database']);
@@ -65,3 +78,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }else{
     echo "ocurrio error inesperado con el post";
 }
+?>
+
+<a href="/Pokedex/index.php"><button class="btn btn-primary">Inicio</button></a>
+</body>
+</html>

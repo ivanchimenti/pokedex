@@ -9,7 +9,6 @@
         <a href="/Pokedex/index.php"><img src="/Pokedex/assets/images/pokedex.png" alt="pokedex logo"></a>
         <div class="login">
             <?php
-            session_start();
             if(isset($_SESSION['admin_id'])) {
                 echo '<form action="/Pokedex/logout.php" method="post"><button type="submit" class="btn btn-danger" name="logout">Logout</button></form>';
             } else {
