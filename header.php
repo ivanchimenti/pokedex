@@ -3,8 +3,7 @@
 <!--    </a>-->
     <div class="userInfo">
         <div class="logo">
-            <p>img</p>
-            <p>Logo</p>
+            <a href="/Pokedex/index.php"><img src="/Pokedex/assets/images/pokebola.png" alt="pokedex logo"></a>
         </div>
         <a href="/Pokedex/index.php"><img src="/Pokedex/assets/images/pokedex.png" alt="pokedex logo"></a>
         <div class="login">

@@ -15,6 +15,11 @@
     display:flex;
 }
 
+.logo a img{
+    width:50px;
+    height:50px;
+}
+
 .search{
     display: flex;
     justify-content: center;
