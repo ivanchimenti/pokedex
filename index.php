@@ -27,6 +27,15 @@ if(mysqli_num_rows($result) <= 0) {
     <?php
     include("header.php");
 
+
+if(isset($_GET['error'])) {
+    $error = $_GET['error'];
+
+    echo "<div class='alert alert-danger' role='alert'>$error</div>";
+
+}
+
+
 if (isset($_SESSION['admin_id'])) {
     header("Location: admin/dashboard.php");
     exit();
