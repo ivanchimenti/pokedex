@@ -9,7 +9,10 @@
         <div class="login">
             <?php
             if(isset($_SESSION['admin_id'])) {
+                echo '<div class="btn-group">';
+                echo '<form action="/Pokedex/admin/addPokemon.php" method="post"><button type="submit" class="btn btn-success" name="add">Add</button></form>';
                 echo '<form action="/Pokedex/logout.php" method="post"><button type="submit" class="btn btn-danger" name="logout">Logout</button></form>';
+                echo '</div>';
             } else {
                 echo "<form action='login.php' method='POST'>";
                 echo "<input type='text' name='username' placeholder='Usuario'>";
