@@ -34,6 +34,15 @@ mysqli_close($conn);
 <body>
     <?php
 include("../header.php");
+
+
+if(isset($_GET['error'])) {
+    $error = $_GET['error'];
+
+    echo "<div class='alert alert-danger' role='alert'>$error</div>";
+
+}
+
 ?>
 
     <div class="container row justify-content-center align-items-center">

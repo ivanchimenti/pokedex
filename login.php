@@ -27,7 +27,7 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
         exit();
     } else {
 
-        $error = "Incorrect username or password";
+        $error = "Usuario o contraseña incorrectos";
     }
 }
 

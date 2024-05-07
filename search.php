@@ -17,13 +17,14 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["search"])) {
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
-            $errorMessage = "";
         } else {
-            header("Location: admin/dashboard.php?error=1");
+            $error = "Pokemon no encontrado";
+            header("Location: admin/dashboard.php?error=$error");
             exit();
         }
     } else {
         $searchTerm = strtolower($search);
+        $error = "Pokemon no encontrado";
 
         $sql = "SELECT * FROM pokemon WHERE LOWER(Nombre) = '$searchTerm'";
         $result = $conn->query($sql);
@@ -31,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["search"])) {
         if ($result->num_rows > 0) {
             $pokemon = $result->fetch_assoc();
         } else {
-            header("Location: index.php?error=1");
+            header("Location: index.php?error=$error");
             exit();
         }
     }
