@@ -1,9 +1,5 @@
 <?php
-$conn = mysqli_connect("localhost", "root", "", "pokedexpw2");
-
-if (!$conn) {
-    die("Error al conectar con la base de datos: " . mysqli_connected_error());
-}
+require_once 'db.php';
 
 $sql = "SELECT * FROM pokemon";
 $result = mysqli_query($conn, $sql);
@@ -13,6 +9,7 @@ if(mysqli_num_rows($result) <= 0) {
 }
 
 mysqli_close($conn);
+
 ?>
 
 <!DOCTYPE html>
@@ -44,8 +41,8 @@ if (isset($_SESSION['admin_id'])) {
                 <?php while ($row = $result -> fetch_assoc()): ?>
                 <div class="card m-3 p-3 justify-content-center" style="width: 18rem;">
                     <img class="imagenPokemon"
-                        src="<?php echo "assets/pkmnImages/" . $row['Id'] . ".gif"?>"
-                        class="card-img-top" style="width:200px; height:200px"
+                        src="<?php echo $row['Imagen']; ?>"
+                        class="card-img-top" style="height: 100%"
                         alt="<?php echo $row['Nombre'];?>">
                     <div class="card-body">
                         <h5 class="card-title">

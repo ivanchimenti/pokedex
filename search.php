@@ -1,21 +1,19 @@
 <?php
-//require_once('includes/db.php');
-//require_once('includes/functions.php');
-require_once('db.php');
-require_once('functions.php');
-
-$conn = mysqli_connect("localhost", "root", "", "pokedexpw2");
-if (!$conn) {
-    die("Error al conectar con la base de datos: " . mysqli_connect_error());
-}
+require_once 'db.php';
+require_once 'functions.php';
+session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["search"])) {
     $search = validate_input($_GET["search"]);
 
-    // Check if session ID is set
     if (isset($_SESSION['admin_id'])) {
-        // Query for admin user
-        $sql = "SELECT * FROM pokemon WHERE Nombre LIKE '%$search%'";
+
+        $searchTerm = strtolower($search);
+
+
+        $sql = "SELECT id, Nombre, NroPokedex, imagen FROM pokemon WHERE LOWER(Nombre) = '$searchTerm'";
+
+
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
@@ -25,7 +23,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["search"])) {
             exit();
         }
     } else {
-        // Query for non-admin user
         $searchTerm = strtolower($search);
 
         $sql = "SELECT * FROM pokemon WHERE LOWER(Nombre) = '$searchTerm'";
@@ -42,7 +39,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["search"])) {
     header("Location: dashboard.php");
     exit();
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -51,16 +47,13 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["search"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultado de búsqueda</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <title>Pokédex - Dashboard</title>
+    <link rel="stylesheet" href="/pokedex/assets/css/dashboard.css">
 </head>
 
 <body>
 
-    <?php include('header.php'); ?>
-
+    <?php include('./header.php'); ?>
     <div class="pokemon_container">
         <table>
             <thead>
@@ -80,39 +73,43 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["search"])) {
                 <tr>
                     <td><?php echo $row['id']; ?>
                     </td>
-                    <td><?php echo $row['dexNumber']; ?>
+                    <td><?php echo $row['NroPokedex']; ?>
                     </td>
                     <td>
                         <a class="pkmn_name"
                             href="/pokedex/pokemon.php?id=<?php echo $row['id']; ?>">
-                            <?php echo $row['name']; ?>
+                            <?php echo $row['Nombre']; ?>
                         </a>
                     </td>
                     <td>
                         <a class="pkmn_name"
                             href="/pokedex/pokemon.php?id=<?php echo $row['id']; ?>">
                             <img class="pkmn_img"
-                                src="<?php echo $row['image']; ?>"
-                                alt="<?php echo $row['name']; ?>">
+                                src="<?php echo $row['imagen']; ?>"
+                                alt="<?php echo $row['Nombre']; ?>">
                         </a>
                     </td>
                     <td>
                         <?php
                                 $pokemonId = $row['id'];
-                    $sqlTypes = "SELECT t.name FROM type t JOIN pokemon_type pt ON t.id = pt.type_id WHERE pt.pokemon_id = $pokemonId";
+
+                    $sqlTypes = "SELECT t.id, t.nombre FROM tipo AS t JOIN pokemon_tipo AS pt ON t.id = pt.idTipo WHERE pt.idPokemon = $pokemonId";
                     $resultTypes = $conn->query($sqlTypes);
                     echo '<div class="types">';
                     while ($rowType = $resultTypes->fetch_assoc()) {
-                        echo '<div class="icon ' . $rowType['name'] . '"><img src="/pokedex/assets/types/' . $rowType['name'] . '.svg" alt="' . $rowType['name'] . '"></div>';
+                        echo '<div class="' . $rowType['nombre'] . '"><img src="/pokedex/assets/images/tipos/' . $rowType['id'] . '.png" alt="' . $rowType['nombre'] . '"></div>';
                     }
                     echo '</div>';
+
+
+
                     ?>
                     </td>
                     <td><a
-                            href="editPokemon.php?id=<?php echo $row['id']; ?>"><button>Edit</button></a>
+                            href="admin/formUpdatepokemon.php?id=<?php echo $row['id']; ?>"><button>Editar</button></a>
                     </td>
                     <td><a
-                            href="deletePokemon.php?id=<?php echo $row['id']; ?>"><button>Delete</button></a>
+                            href="admin/deletePokemon.php?id=<?php echo $row['id']; ?>"><button>Borrar</button></a>
                     </td>
                 </tr>
                 <?php endwhile; ?>
@@ -125,8 +122,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["search"])) {
                             <?php echo $pokemon['Nombre']; ?>
                         </h3>
                         <img
-                            src=<?php echo "assets/pkmnImages/".$pokemon['Imagen'];?>
-                        style="width:200px;height:200px;"
+                            src=<?php echo $pokemon['Imagen'];?>
                         alt="<?php echo $pokemon['Nombre']; ?>">
                     </div>
                 </a>
@@ -134,6 +130,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["search"])) {
                 <?php endif; ?>
             </tbody>
         </table>
+
         <?php if (isset($_SESSION['admin_id'])): ?>
         <a class="addPokemon" href="addPokemon.php"><button>Add Pokémon</button></a>
         <?php endif; ?>
