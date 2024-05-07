@@ -1,6 +1,6 @@
 <?php
 
-require_once 'db.php';
+require_once '../db.php';
 
 session_start();
 
@@ -15,12 +15,12 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $sqlDeleteTypes = "DELETE FROM pokemon_tipo WHERE IdPokemon = $IdPokemon";
     if ($conn->query($sqlDeleteTypes) === true) {
 
-        $sqlImageRoute = "SELECT image FROM pokemon WHERE Id = $IdPokemon";
+        $sqlImageRoute = "SELECT imagen FROM pokemon WHERE Id = $IdPokemon";
         $result = $conn->query($sqlImageRoute);
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
 
-            $imageRoute = $_SERVER['DOCUMENT_ROOT'] . $row['image'];
+            $imageRoute = $_SERVER['DOCUMENT_ROOT'] . $row['imagen'];
 
             unlink($imageRoute);
 

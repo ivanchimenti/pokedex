@@ -1,8 +1,9 @@
 <?php
 //Chequear que creen db.php, y el nombre de $_SESSION['admin_id']
-require_once 'db.php';
-require_once 'functions.php';
+require_once '../db.php';
+require_once '../functions.php';
 
+session_start();
 if (!isset($_SESSION['admin_id'])) {
     header('Location: index.php');
     exit();

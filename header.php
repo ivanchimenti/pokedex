@@ -1,6 +1,6 @@
 <div class="header">
-<!--    <a href="/pokedex/admin/dashboard.php">-->
-<!--    </a>-->
+    <!--    <a href="/pokedex/admin/dashboard.php">-->
+    <!--    </a>-->
     <div class="userInfo">
         <div class="logo">
             <a href="/Pokedex/index.php"><img src="/Pokedex/assets/images/pokebola.png" alt="pokedex logo"></a>
@@ -12,10 +12,10 @@
                 echo '<form action="/Pokedex/logout.php" method="post"><button type="submit" class="btn btn-danger" name="logout">Logout</button></form>';
             } else {
                 echo "<form action='login.php' method='POST'>";
-               echo "<input type='text' name='username' placeholder='Usuario'>";
-               echo "<input type='text' name='password' placeholder='Password'>";
-               echo '<button type="submit" class="btn btn-primary">Login</button>';
-               echo "</form>";
+                echo "<input type='text' name='username' placeholder='Usuario'>";
+                echo "<input type='text' name='password' placeholder='Password'>";
+                echo '<button type="submit" class="btn btn-primary">Login</button>';
+                echo "</form>";
             }
             ?>
         </div>
@@ -26,4 +26,4 @@
             <button type="submit" class="btn btn-primary">Buscar</button>
         </form>
     </div>
-    </div>
+</div>

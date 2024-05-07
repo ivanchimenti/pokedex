@@ -7,7 +7,6 @@ if(isset($_SESSION['admin_id'])) {
 }
 
 if(isset($_POST['username']) && isset($_POST['password'])) {
-    echo "estoy en login";
     $username = $_POST['username'];
     $password = $_POST['password'];
 
