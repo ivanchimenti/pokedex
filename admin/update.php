@@ -14,7 +14,7 @@
 
 <body>
     <?php
-include("header.php");
+include("../header.php");
     $config_path = $_SERVER['DOCUMENT_ROOT'] . '/pokedex/config.ini';
     $config = parse_ini_file($config_path);
     $conn = mysqli_connect($config['servername'], $config['username'], $config['password'], $config['database']);

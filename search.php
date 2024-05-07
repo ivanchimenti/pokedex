@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["search"])) {
         if ($result->num_rows > 0) {
             $errorMessage = "";
         } else {
-            header("Location: dashboard.php?error=1");
+            header("Location: admin/dashboard.php?error=1");
             exit();
         }
     } else {
@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["search"])) {
         }
     }
 } else {
-    header("Location: dashboard.php");
+    header("Location: admin/dashboard.php");
     exit();
 }
 ?>
@@ -123,6 +123,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["search"])) {
                         </h3>
                         <img
                             src=<?php echo $pokemon['Imagen'];?>
+                        style="width: 100px;"
                         alt="<?php echo $pokemon['Nombre']; ?>">
                     </div>
                 </a>

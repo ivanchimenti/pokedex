@@ -30,15 +30,15 @@ include_once "header.php";
             if(mysqli_num_rows($resultTipos) > 0) {
                 while($row = mysqli_fetch_assoc($result)) {
                     echo "<div class='container detalle'>";
-                    echo "<img src='assets/pkmnImages/" . $row["Id"] . ".gif" . "' alt='' style='width:200px; height:200px'>";
+                    echo "<img src='" . $row["Imagen"] . "' alt='' style='width:200px;>";
                     echo "<div class='informacion'>";
                     echo "<div class='d-flex'>";
                     echo "<div class='d-flex flex-column'>";
                     while($row2 = mysqli_fetch_assoc($resultTipos)) {
-                        echo "<img src='assets/images/tipos/" . $row2["IdTipo"] . ".png" . "' alt='' style='width:100px; height:20px'>";
+                        echo "<img src='assets/images/tipos/" . $row2["IdTipo"] . ".png" . "' alt='' style='width:100px;'>";
                     }
                     echo "</div>";
-                    echo "<h2> |". $row["Nombre"] ."</h2>";
+                    echo "<h2>". $row["Nombre"] ."</h2>";
                     echo "</div>";
                     echo "<p>Descripcion:". $row["Descripcion"] ."</p><br>";
                     echo "<p>Nro. Pokedex:". $row["NroPokedex"] ."</p><br>";

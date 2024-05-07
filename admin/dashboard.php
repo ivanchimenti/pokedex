@@ -46,7 +46,7 @@ include("../header.php");
             echo "<td>" . $row["NroPokedex"] . "</td>";
             echo "<td>" . $row["Nombre"] . "</td>";
             echo "<td>" . $row["Descripcion"] . "</td>";
-            echo "<td><a href='/Pokedex/formUpdatePokemon.php?id=" . $row["Id"] . "'>Editar</a></td>";
+            echo "<td><a href='/Pokedex/admin/formUpdatePokemon.php?id=" . $row["Id"] . "'>Editar</a></td>";
             echo "<td><a href='/Pokedex/admin/deletePokemon.php?id=" . $row["Id"] . "'>Eliminar</a></td>";
             echo "</tr>";
         }

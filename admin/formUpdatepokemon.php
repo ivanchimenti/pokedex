@@ -8,7 +8,7 @@ if (!isset($_SESSION['admin_id'])) {
     exit();
 }
 
-require_once("db.php");
+require_once("../db.php");
 
 
 if (isset($_GET['id'])) {
@@ -68,7 +68,7 @@ if (isset($_GET['id'])) {
 
 <body>
     <?php
-require_once("header.php");
+require_once("../header.php");
 ?>
 
     <div class="container ">
