@@ -11,7 +11,7 @@ function validate_input($input)
 
 function upload_image($file)
 {
-    $target_dir = "./assets/pkmnImages/";
+    $target_dir = "../assets/sprites/";
     $target_file = $target_dir . basename($file["name"]);
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
     $image_name = uniqid() . '.' . $imageFileType;
@@ -30,7 +30,7 @@ function upload_image($file)
         }
 
         if (move_uploaded_file($file["tmp_name"], $target_dir . $image_name)) {
-            return "/pokedex/assets/pkmnImages/" . $image_name;
+            return "/pokedex/assets/sprites/" . $image_name;
         } else {
             return false;
         }

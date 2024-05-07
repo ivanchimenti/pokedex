@@ -1,5 +1,4 @@
 <?php
-//Chequear que creen db.php, y el nombre de $_SESSION['admin_id']
 require_once '../db.php';
 require_once '../functions.php';
 
@@ -11,11 +10,15 @@ if (!isset($_SESSION['admin_id'])) {
 
 $error = '';
 
-$NroPokedex = validate_input($_POST['NroPokedex']);
-$nombre = validate_input($_POST['nombre']);
-$tipo1 = validate_input($_POST['tipo1']);
-$tipo2 = validate_input($_POST['tipo2']);
-$descripcion = validate_input($_POST['descripcion']);
+
+if (isset($_POST['NroPokedex'], $_POST['nombre'], $_POST['tipo1'], $_POST['tipo2'], $_POST['descripcion'])) {
+    $NroPokedex = validate_input($_POST['NroPokedex']);
+    $nombre = validate_input($_POST['nombre']);
+    $tipo1 = validate_input($_POST['tipo1']);
+    $tipo2 = validate_input($_POST['tipo2']);
+    $descripcion = validate_input($_POST['descripcion']);
+}
+
 
 $imagen = '';
 
@@ -62,7 +65,7 @@ if (empty($error)) {
 </head>
 
 <body>
-    <?php include('header.php'); ?>
+    <?php include('../header.php'); ?>
     <h1>agregar Pokémon</h1>
     <div>
 
@@ -72,8 +75,8 @@ if (empty($error)) {
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" name="nombre" required><br>
 
-            <label for="nroPokedex">Nro. de Pokedex:</label>
-            <input type="text" id="nroPokedex" name="nroPokedex" required><br>
+            <label for="NroPokedex">Nro. de Pokedex:</label>
+            <input type="text" id="NroPokedex" name="NroPokedex" required><br>
 
 
             <label for="tipo1">Primer Tipo:</label>
