@@ -60,7 +60,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["search"])) {
         <table>
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Dex Number</th>
                     <th>Name</th>
                     <th>Image</th>
@@ -72,8 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["search"])) {
             <tbody>
                 <?php while ($row = $result->fetch_assoc()): ?>
                 <tr>
-                    <td><?php echo $row['id']; ?>
-                    </td>
+                    
                     <td><?php echo $row['NroPokedex']; ?>
                     </td>
                     <td>

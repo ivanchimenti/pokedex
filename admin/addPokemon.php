@@ -81,47 +81,51 @@ if (empty($error)) {
 
             <label for="tipo1">Primer Tipo:</label>
             <select id="tipo1" name="tipo1" required>
-                <option value="1">Normal</option>
-                <option value="2">Pelea</option>
-                <option value="3">Volador</option>
-                <option value="4">Veneno</option>
-                <option value="5">Tierra</option>
-                <option value="6">Roca</option>
-                <option value="7">Insecto</option>
-                <option value="8">Fantasma</option>
-                <option value="9">Acero</option>
-                <option value="10">Fuego</option>
-                <option value="11">Agua</option>
-                <option value="12">Planta</option>
-                <option value="13">Eléctrico</option>
-                <option value="14">Psíquico</option>
-                <option value="15">Hielo</option>
-                <option value="16">Dragón</option>
-                <option value="17">Siniestro</option>
-                <option value="18">Hada</option>
+            <?php
+
+
+    $sqlQueryTiposCompleto = "SELECT * FROM tipo;";
+    $resultTiposCompleto = mysqli_query($conn, $sqlQueryTiposCompleto);
+
+    if (mysqli_num_rows($resultTiposCompleto) > 0) {
+        $arrayTipos = array();
+        while ($row = mysqli_fetch_assoc($resultTiposCompleto)) {
+            $arrayTipos[$row["Id"]] = $row["Nombre"];
+        }
+    }
+
+
+                          foreach ($arrayTipos as $clave => $valor) {
+                              if($clave==1) {
+                                  echo "<option value='" . $clave. "' selected>". $valor ."</option>";
+                              } else {
+                                  echo "<option value='" . $clave. "'>". $valor ."</option>";
+                              }
+                          }
+            ?>
+        
             </select><br>
 
             <label for="tipo2">Segundo Tipo:</label>
             <select id="tipo2" name="tipo2">
                 <option value="">Ninguno</option>
-                <option value="1">Normal</option>
-                <option value="2">Pelea</option>
-                <option value="3">Volador</option>
-                <option value="4">Veneno</option>
-                <option value="5">Tierra</option>
-                <option value="6">Roca</option>
-                <option value="7">Insecto</option>
-                <option value="8">Fantasma</option>
-                <option value="9">Acero</option>
-                <option value="10">Fuego</option>
-                <option value="11">Agua</option>
-                <option value="12">Planta</option>
-                <option value="13">Eléctrico</option>
-                <option value="14">Psíquico</option>
-                <option value="15">Hielo</option>
-                <option value="16">Dragón</option>
-                <option value="17">Siniestro</option>
-                <option value="18">Hada</option>
+            <?php
+
+$sqlQueryTiposCompleto = "SELECT * FROM tipo;";
+$resultTiposCompleto = mysqli_query($conn, $sqlQueryTiposCompleto);
+
+if (mysqli_num_rows($resultTiposCompleto) > 0) {
+    $arrayTipos = array();
+    while ($row = mysqli_fetch_assoc($resultTiposCompleto)) {
+        $arrayTipos[$row["Id"]] = $row["Nombre"];
+    }
+}
+          foreach ($arrayTipos as $clave => $valor) {
+             
+                  echo "<option value='" . $clave. "'>". $valor ."</option>";           
+          }
+   
+?>
             </select><br>
 
             <label for="descripcion">Descripción:</label>
