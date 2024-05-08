@@ -45,21 +45,26 @@ if(isset($_GET['error'])) {
 
 ?>
 
-    <div class="container row justify-content-center align-items-center">
+    <div class="container d-flex">
         <?php
     if(mysqli_num_rows($result) > 0) {
-        echo "<table>";
-        echo "<tr><th>Nro. Pokedex</th><th>Nombre</th><th>Descripción</th><th>Acciones</th></tr>";
+        echo "<table class='table table-striped table-bordered'>";
+        echo "<thead>";
+        echo "<tr><th scope='col'>Nro. Pokedex</th><th scope='col'>Nombre</th><th scope='col'>Descripción</th><th scope='col'>Acciones</th></tr>";
+        echo "</thead>";
+        echo "<tbody>";
         while ($row = mysqli_fetch_assoc($result)) {
             echo "<tr>";
             echo "<td>" . $row["NroPokedex"] . "</td>";
             echo "<td>" . $row["Nombre"] . "</td>";
             echo "<td>" . $row["Descripcion"] . "</td>";
-            echo "<td><a href='/Pokedex/admin/formUpdatePokemon.php?id=" . $row["Id"] . "'>Editar</a></td>";
-            echo "<td><a href='/Pokedex/admin/deletePokemon.php?id=" . $row["Id"] . "'>Eliminar</a></td>";
+            echo "<td><a href='/Pokedex/admin/formUpdatePokemon.php?id=" . $row["Id"] . "'>Editar</a>&nbsp;<a href='/Pokedex/admin/deletePokemon.php?id=" . $row["Id"] . "'>Eliminar</a></td>";
+//            echo "<td><a href='/Pokedex/admin/deletePokemon.php?id=" . $row["Id"] . "'>Eliminar</a></td>";
             echo "</tr>";
         }
+        echo "</tbody>";
         echo "</table>";
+
     } else {
         echo "No se encontraron resultados";
     }
