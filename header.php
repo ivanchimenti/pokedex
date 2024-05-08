@@ -6,7 +6,7 @@
 </head>
 <div class="header">
     <div class="userInfo">
-        <div class="logo">
+        <div class="logo mt-3 p-2">
             <a href="/Pokedex/index.php"><img src="/Pokedex/assets/images/pokebola.png" alt="pokedex logo"></a>
         </div>
         <a href="/Pokedex/index.php"><img src="/Pokedex/assets/images/pokedex.png" alt="pokedex logo"></a>
