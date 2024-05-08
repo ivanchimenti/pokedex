@@ -17,7 +17,7 @@ Thumbs.db
 
 /sessions/
 
-/assets/imagenes/sprites
+/assets/sprites
 
 .env
 .env.local
