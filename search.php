@@ -76,7 +76,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["search"])) {
                     </td>
                     <td>
                         <a class="pkmn_name"
-                            href="/pokedex/pokemon.php?id=<?php echo $row['id']; ?>"
                             href="/pokedex/detalle_pokemon.php?id=<?php echo $row['id']; ?>">
                             <?php echo $row['Nombre']; ?>
                         </a>
