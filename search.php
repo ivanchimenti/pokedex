@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["search"])) {
 
     <?php include('./header.php'); ?>
     <?php if (isset($_SESSION['admin_id'])): ?>
-    <div class="pokemon_container">
+    <div class="container detalle">
         <table>
             <thead>
                 <tr>
@@ -77,12 +77,13 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["search"])) {
                     <td>
                         <a class="pkmn_name"
                             href="/pokedex/pokemon.php?id=<?php echo $row['id']; ?>">
+                            href="/pokedex/detalle_pokemon.php?id=<?php echo $row['id']; ?>">
                             <?php echo $row['Nombre']; ?>
                         </a>
                     </td>
                     <td>
                         <a class="pkmn_name"
-                            href="/pokedex/pokemon.php?id=<?php echo $row['id']; ?>">
+                            href="/pokedex/detalle_pokemon.php?id=<?php echo $row['id']; ?>">
                             <img class="pkmn_img"
                                 src="<?php echo $row['imagen']; ?>"
                                 alt="<?php echo $row['Nombre']; ?>">
@@ -132,7 +133,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["search"])) {
         </table>
 
         <?php if (isset($_SESSION['admin_id'])): ?>
-        <a class="addPokemon" href="addPokemon.php"><button>Add Pokémon</button></a>
+        <a class="addPokemon" href="/Pokedex/admin/addPokemon.php"><button>Add Pokémon</button></a>
         <?php endif; ?>
     </div>
 </body>
