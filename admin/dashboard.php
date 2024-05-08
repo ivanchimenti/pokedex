@@ -59,7 +59,6 @@ if(isset($_GET['error'])) {
             echo "<td>" . $row["Nombre"] . "</td>";
             echo "<td>" . $row["Descripcion"] . "</td>";
             echo "<td><a href='/Pokedex/admin/formUpdatePokemon.php?id=" . $row["Id"] . "'>Editar</a>&nbsp;<a href='/Pokedex/admin/deletePokemon.php?id=" . $row["Id"] . "'>Eliminar</a></td>";
-//            echo "<td><a href='/Pokedex/admin/deletePokemon.php?id=" . $row["Id"] . "'>Eliminar</a></td>";
             echo "</tr>";
         }
         echo "</tbody>";
