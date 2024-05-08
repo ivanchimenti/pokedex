@@ -43,8 +43,13 @@ if (empty($error)) {
         $conn->query($sqlTipo1);
 
         if (!empty($tipo2)) {
-            $sqlTipo2 = "INSERT INTO pokemon_tipo (IdPokemon, IdTipo) VALUES ('$IdPokemon', '$tipo2')";
+            if ($tipo2!=$tipo1) {
+                $sqlTipo2 = "INSERT INTO pokemon_tipo (IdPokemon, IdTipo) VALUES ('$IdPokemon', '$tipo2')";
             $conn->query($sqlTipo2);
+            }else{
+                $error = "No se permiten tipos duplicados.";
+            }
+            
         }
 
         header("Location: dashboard.php");
