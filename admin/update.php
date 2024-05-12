@@ -34,7 +34,6 @@ include("../header.php");
             $nroPokedexNuevo = $_POST["nroPokedex"];
             $tipo1Nuevo = $_POST["tipo1"];
 
-
             if($_FILES["file"]["name"]) {
                 $imagenNuevo = $_FILES["file"]["name"];
                 if(!file_exists("/xampp/htdocs/Pokedex/assets/pkmnImages/" . $_FILES["file"]["name"])) {
@@ -52,7 +51,7 @@ include("../header.php");
             $resultDelete = mysqli_query($conn, $sql_borrarTiposAntiguos);
 
             if ($resultDelete === true) {
-                if($_POST["tipo2"]) {
+                if($_POST["tipo2"] && $_POST["tipo2"]!=$_POST["tipo1"]) {
                     $tipo2Nuevo = $_POST["tipo2"];
                     $sql_actualizarTipos = "INSERT INTO pokemon_tipo (IdPokemon,IdTipo) VALUES ($id_pokemon,$tipo1Nuevo),($id_pokemon,$tipo2Nuevo)";
                     $resultInsert = mysqli_query($conn, $sql_actualizarTipos);
