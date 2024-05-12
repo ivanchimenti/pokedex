@@ -1,19 +1,33 @@
-INSERT INTO `tipo` (`id`, `nombre`) VALUES
-(1, 'Normal'),
-(2, 'Pelea'),
-(3, 'Volador'),
-(4, 'Veneno'),
-(5, 'Tierra'),
-(6, 'Roca'),
-(7, 'Insecto'),
-(8, 'Fantasma'),
-(9, 'Acero'),
-(10, 'Fuego'),
-(11, 'Agua'),
-(12, 'Planta'),
-(13, 'Eléctrico'),
-(14, 'Psíquico'),
-(15, 'Hielo'),
-(16, 'Dragón'),
-(17, 'Siniestro'),
-(18, 'Hada');
+START TRANSACTION;
+-- Base de datos: `pokedexpw2`
+-- Estructura de tabla para la tabla `tipo`
+CREATE TABLE `tipo` (
+  `Id` int(11) NOT NULL,
+  `Nombre` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Volcado de datos para la tabla `tipo`
+INSERT INTO `tipo` (`Id`, `Nombre`) VALUES
+(1, 0),
+(2, 0),
+(3, 0),
+(4, 0),
+(5, 0),
+(6, 0),
+(7, 0),
+(8, 0),
+(9, 0),
+(10, 0),
+(11, 0),
+(12, 0),
+(13, 0),
+(14, 0),
+(15, 0),
+(16, 0),
+(17, 0),
+(18, 0);
+
+-- Indices de la tabla `tipo`
+ALTER TABLE `tipo`
+  ADD PRIMARY KEY (`Id`);
+COMMIT;
