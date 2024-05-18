@@ -1,26 +1,10 @@
 <?php
 session_start();
 include_once ("configuration.php");
+$router = Configuration::getRouter();
 
-$database = Configuration::getDatabase();
+$controller = isset($_GET['controller']) ? $_GET['controller'] : "";
+$action = isset($_GET['action']) ? $_GET['action'] : "";
+$id = isset($_GET['id']) ? $_GET['id'] : "";
 
-include("view/header.php");
-?>
-<?php
-$path = $_GET['path'];
-
-switch($path){
-    case "pokemons":
-        $pokemons = $database->query("SELECT * FROM pokemon");
-        include_once("view/pokemonsView.php");
-        break;
-    default:
-        $pokemons = $database->query("SELECT * FROM pokemon");
-        include_once("view/pokemonsView.php");
-        break;
-}
-?>
-
-
-</body>
-</html>
+$router->route($controller,$action, $id);

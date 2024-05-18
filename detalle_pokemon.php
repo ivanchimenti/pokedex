@@ -1,60 +1,42 @@
-<!doctype html>
-<html lang="en">
+<?php include_once "view/header.php";
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Pokedex-Detalle</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <link rel="stylesheet" href="assets/css/detalle.css">
-</head>
-
-<body>
-    <?php
-include_once "header.php";
-    include_once "db.php";
-
-    if (isset($_GET['id'])) {
-        // Obtener el valor de "id" y mostrarlo
-        $id = $_GET['id'];
-
-        $sqlQueryPokemon = "SELECT * FROM pokemon WHERE Id = $id";
-        $result = mysqli_query($conn, $sqlQueryPokemon);
-        if(mysqli_num_rows($result) > 0) {
-            $sqlQueryTipos = "SELECT * FROM pokemon_tipo WHERE IdPokemon = $id";
-            $resultTipos = mysqli_query($conn, $sqlQueryTipos);
-            if(mysqli_num_rows($resultTipos) > 0) {
-                while($row = mysqli_fetch_assoc($result)) {
+//    if (isset($_GET['id'])) {
+//        // Obtener el valor de "id" y mostrarlo
+//        $id = $_GET['id'];
+//
+//        $sqlQueryPokemon = "SELECT * FROM pokemon WHERE Id = $id";
+//        $result = mysqli_query($conn, $sqlQueryPokemon);
+//        if(mysqli_num_rows($result) > 0) {
+//            $sqlQueryTipos = "SELECT * FROM pokemon_tipo WHERE IdPokemon = $id";
+//            $resultTipos = mysqli_query($conn, $sqlQueryTipos);
+//            if(mysqli_num_rows($resultTipos) > 0) {
+//                while($row = mysqli_fetch_assoc($result)) {
                     echo "<div class='container detalle'>";
-                    echo "<img src='" . $row["Imagen"] . "' alt='' style='width:200px;>";
+                    echo "<img src='" . $pokemon["Imagen"] . "' alt='' style='width:200px;>";
                     echo "<div class='informacion'>";
                     echo "<div class='d-flex'>";
                     echo "<div class='d-flex flex-column'>";
-                    while($row2 = mysqli_fetch_assoc($resultTipos)) {
-                        echo "<img src='assets/images/tipos/" . $row2["IdTipo"] . ".png" . "' alt='' style='width:100px;'>";
+                    foreach($tipos as $tipo) {
+                        echo "<img src='assets/images/tipos/" . $tipo["IdTipo"] . ".png" . "' alt='' style='width:100px;'>";
                     }
                     echo "</div>";
-                    echo "<h2>". $row["Nombre"] ."</h2>";
+                    echo "<h2>". $pokemon["Nombre"] ."</h2>";
                     echo "</div>";
-                    echo "<p>Descripcion:". $row["Descripcion"] ."</p><br>";
-                    echo "<p>Nro. Pokedex:". $row["NroPokedex"] ."</p><br>";
+                    echo "<p>Descripcion:". $pokemon["Descripcion"] ."</p><br>";
+                    echo "<p>Nro. Pokedex:". $pokemon["NroPokedex"] ."</p><br>";
                     echo "</div>";
                     echo "</div>";
-                }
-            }
-        } else {
-            echo "no se encontraron resultados";
-        }
-        // Aquí puedes realizar la búsqueda en tu base de datos y mostrar los detalles
-    } else {
-        // Si no se recibió el parámetro, mostrar un mensaje de error
-        echo "<h1>Error: No se recibió ningún término de búsqueda</h1>";
-    }
-    ?>
-</body>
-
-</html>
+//                }
+//            }
+//        } else {
+//            echo "no se encontraron resultados";
+//        }
+//        // Aquí puedes realizar la búsqueda en tu base de datos y mostrar los detalles
+//    } else {
+//        // Si no se recibió el parámetro, mostrar un mensaje de error
+//        echo "<h1>Error: No se recibió ningún término de búsqueda</h1>";
+//    }
+//    ?>
+<!--</body>-->
+<!---->
+<!--</html>-->
