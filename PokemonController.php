@@ -9,7 +9,7 @@ class PokemonController
         $this->model = $model;
     }
 
-    public function listPokemons()
+    public function get()
     {
         $pokemons = $this->model->getPokemons();
         include_once("view/pokemonsView.php");

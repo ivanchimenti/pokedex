@@ -10,9 +10,9 @@
 <div class="header">
     <div class="userInfo">
         <div class="logo mt-3 p-2">
-            <a href="/Pokedex/index.php?path=pokemons"><img src="/Pokedex/assets/images/pokebola.png" alt="pokedex logo"></a>
+            <a href="/Pokedex/index.php?controller=Pokemon"><img src="/Pokedex/assets/images/pokebola.png" alt="pokedex logo"></a>
         </div>
-        <a href="/Pokedex/index.php?path=pokemons"><img src="/Pokedex/assets/images/pokedex.png" alt="pokedex logo"></a>
+        <a href="/Pokedex/index.php?controller=Pokemon"><img src="/Pokedex/assets/images/pokedex.png" alt="pokedex logo"></a>
         <div class="login">
             <?php
             if(isset($_SESSION['admin_id'])) {
@@ -21,7 +21,7 @@
                 echo '<form action="/Pokedex/logout.php" method="post"><button type="submit" class="btn btn-danger" name="logout">Logout</button></form>';
                 echo '</div>';
             } else {
-                echo "<form action='../login.php' method='POST'>";
+                echo "<form action='/Pokedex/index.php?controller=Admin&action=IsAllowed' method='POST'>";
                 echo "<input type='text' name='username' placeholder='Usuario'>";
                 echo "<input type='text' name='password' placeholder='Password'>";
                 echo '<button type="submit" class="btn btn-primary">Login</button>';

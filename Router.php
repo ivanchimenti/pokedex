@@ -26,16 +26,16 @@ class Router
     private function executeMethodFromController($controller, $method,$id)
     {
         $validMethod = method_exists($controller, $method) ? $method : $this->defaultMethod;
+        call_user_func(array($controller, $validMethod));
+//        $reflectionMethod = new ReflectionMethod($controller, $validMethod);
+//        $parameters = $reflectionMethod->getParameters();
 
-        $reflectionMethod = new ReflectionMethod($controller, $validMethod);
-        $parameters = $reflectionMethod->getParameters();
-
-        if (count($parameters) > 0) {
-            // Llamar al método del controlador con el ID como argumento
-            call_user_func(array($controller, $validMethod), $id);
-        } else {
-            // Llamar al método del controlador sin argumentos
-            call_user_func(array($controller, $validMethod));
-        }
+//        if (count($parameters) > 0) {
+//            // Llamar al método del controlador con el ID como argumento
+//            call_user_func(array($controller, $validMethod), $id);
+//        } else {
+//            // Llamar al método del controlador sin argumentos
+//            call_user_func(array($controller, $validMethod));
+//        }
     }
 }

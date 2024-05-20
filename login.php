@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+//session_start();
 
 if(isset($_SESSION['admin_id'])) {
     header("Location: /pokedex/admin/dashboard.php");
@@ -18,6 +18,7 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
 
     $sql = "SELECT 1 FROM admin WHERE User = '$username' AND Password = '$password'";
     $result = $conn->query($sql);
+
 
 
     if($result->num_rows > 0) {

@@ -4,7 +4,7 @@ class PokemonModel
 {
     private $database;
 
-    public function __construct(\Database $database)
+    public function __construct($database)
     {
         $this->database = $database;
     }

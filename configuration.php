@@ -4,6 +4,9 @@ include_once ("db.php");
 include_once ("PokemonModel.php");
 //VISTAS
 include_once ("PokemonController.php");
+include_once ("AdminModel.php");
+//VISTAS
+include_once ("AdminController.php");
 
 include_once ("Router.php");
 
@@ -25,14 +28,24 @@ class Configuration
         return new PokemonController(self::getPokemonModel());
     }
 
+    public static function getAdminController()
+    {
+        return new AdminController(self::getAdminModel());
+    }
+
     private static function getPokemonModel()
     {
         return new PokemonModel(self::getDatabase());
     }
 
+    private static function getAdminModel()
+    {
+        return new AdminModel(self::getDatabase());
+    }
+
     public static function getRouter()
     {
-        return new Router("getPokemonController", "listPokemons");
+        return new Router("getPokemonController", "get");
     }
 
 }
