@@ -11,9 +11,9 @@ class Router
         $this->defaultMethod = $defaultMethod;
     }
 
-    public function route($controller,$action,$id){
+    public function route($controller,$action){
         $controller = $this->getControllerFrom($controller);
-        $this->executeMethodFromController($controller, $action,$id);
+        $this->executeMethodFromController($controller, $action);
     }
 
     private function getControllerFrom($module)
@@ -23,19 +23,9 @@ class Router
         return call_user_func(array("Configuration", $validController));
     }
 
-    private function executeMethodFromController($controller, $method,$id)
+    private function executeMethodFromController($controller, $method)
     {
         $validMethod = method_exists($controller, $method) ? $method : $this->defaultMethod;
         call_user_func(array($controller, $validMethod));
-//        $reflectionMethod = new ReflectionMethod($controller, $validMethod);
-//        $parameters = $reflectionMethod->getParameters();
-
-//        if (count($parameters) > 0) {
-//            // Llamar al método del controlador con el ID como argumento
-//            call_user_func(array($controller, $validMethod), $id);
-//        } else {
-//            // Llamar al método del controlador sin argumentos
-//            call_user_func(array($controller, $validMethod));
-//        }
     }
 }

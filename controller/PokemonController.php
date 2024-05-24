@@ -15,9 +15,15 @@ class PokemonController
         include_once("view/pokemonsView.php");
     }
 
-    public function Detalle($id){
+    public function Detalle(){
+
+        $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
         $pokemon = $this->model->getPokemonById($id);
         $tipos = $this->model->getPokemonTiposByPokemonId($id);
-        include_once("detalle_pokemon.php");
+
+        if($pokemon != null && $tipos != null)
+            include_once("view/detallePokemonView.php");
+        else
+            include_once("view/pokemonsView.php");
     }
 }

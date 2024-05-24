@@ -1,14 +1,14 @@
 <?php
-include_once ("db.php");
+include_once("helper/db.php");
 //MODELOS
-include_once ("PokemonModel.php");
+include_once ("model/PokemonModel.php");
 //VISTAS
-include_once ("PokemonController.php");
-include_once ("AdminModel.php");
+include_once ("controller/PokemonController.php");
+include_once ("model/AdminModel.php");
 //VISTAS
-include_once ("AdminController.php");
+include_once ("controller/AdminController.php");
 
-include_once ("Router.php");
+include_once ("helper/Router.php");
 
 class Configuration
 {

@@ -115,7 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["search"])) {
                 <?php else: ?>
                 <?php if ($pokemon): ?>
                 <a
-                    href="detalle_pokemon.php?id=<?php echo $pokemon['Id']; ?>">
+                    href="view/detallePokemonView.php?id=<?php echo $pokemon['Id']; ?>">
                     <div class="card">
                         <h3 class="pkmn_name">
                             <?php echo $pokemon['Nombre']; ?>
